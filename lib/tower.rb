@@ -4,6 +4,15 @@ class Tower
     @posts = posts
   end
 
+  def solve
+    if @posts["C"] == [3,2,1]
+      puts "Solved! #{posts}"
+    else
+      move!
+      solve
+    end
+  end
+
   def move!
     origin_post = find_largest_that_can_move
     destination_post = find_farthest_possible_move(origin_post)
@@ -26,7 +35,11 @@ class Tower
     pillars.each do |pillar|
       proposed_pillar = @posts[pillar].dup
       proposed_move = proposed_pillar.push(piece)
-      return pillar if valid_move?(proposed_move)
+      if valid_move?(proposed_move)
+        return pillar
+      else
+        false
+      end
     end
   end
 
@@ -45,15 +58,14 @@ class Tower
   end
 
   def piece_can_move?(key, piece)
-    piece <= key.min ? true : false
+    if piece <= key.min
+      true
+    else
+      false
+    end
   end
 
   def valid_move?(proposed_move)
     proposed_move == proposed_move.sort.reverse ? true : false
   end
 end
-
-t = Tower.new
-t.move!
-t.posts
-{"A" => [], "B" => [], "C" => [3,2,1]}

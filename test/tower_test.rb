@@ -59,6 +59,14 @@ class TowerTest < Minitest::Test
     assert_equal [1], t.posts["C"]
   end
 
+  def test_it_solves
+    skip
+    t = Tower.new
+    t.solve
 
+    assert_equal [], t.posts["A"]
+    assert_equal [], t.posts["B"]
+    assert_equal [3,2,1], t.posts["C"]
+  end
 
 end
