@@ -38,7 +38,25 @@ class TowerTest < Minitest::Test
   def test_find_farthest_possible_move
     t = Tower.new
 
-    assert_equal "C", t.find_farthest_possible_move
+    assert_equal "C", t.find_farthest_possible_move("A")
+  end
+
+  def test_move_makes_correct_move
+    t = Tower.new
+
+    assert_equal [3,2,1], t.posts["A"]
+    assert_equal [], t.posts["C"]
+
+    t.move!
+
+    assert_equal [3,2], t.posts["A"]
+    assert_equal [1], t.posts["C"]
+
+    t.move!
+
+    assert_equal [3], t.posts["A"]
+    assert_equal [2], t.posts["B"]
+    assert_equal [1], t.posts["C"]
   end
 
 

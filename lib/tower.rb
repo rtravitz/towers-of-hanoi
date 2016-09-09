@@ -4,7 +4,11 @@ class Tower
     @posts = posts
   end
 
-  def move!(from = "A", to = "C", extra = "B") #add args / modify method signature if you like
+  def move!
+    origin_post = find_largest_that_can_move
+    destination_post = find_farthest_possible_move(origin_post)
+    piece = @posts[origin_post].pop
+    @posts[destination_post].push(piece)
     #Rules
     #1.   Move the biggest thing that you can
     #2.   Go as far to the right as you can without
@@ -14,14 +18,13 @@ class Tower
 
   end
 
-  def find_farthest_possible_move
+  def find_farthest_possible_move(origin)
     pillars = ["A", "B", "C"]
-    origin = find_largest_that_can_move
     pillars.delete(origin)
     pillars.reverse!
     piece = @posts[origin].last
     pillars.each do |pillar|
-      proposed_pillar = @posts[pillar]
+      proposed_pillar = @posts[pillar].dup
       proposed_move = proposed_pillar.push(piece)
       return pillar if valid_move?(proposed_move)
     end
