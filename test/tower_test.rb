@@ -35,12 +35,10 @@ class TowerTest < Minitest::Test
     assert_equal "A", t.find_largest_that_can_move
   end
 
-  def test_move_furthest_to_right
-    skip
+  def test_find_farthest_possible_move
     t = Tower.new
-    t.move_to_right
 
-    assert_equal [1], t.posts["C"]
+    assert_equal "C", t.find_farthest_possible_move
   end
 
 

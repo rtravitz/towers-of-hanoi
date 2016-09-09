@@ -14,7 +14,18 @@ class Tower
 
   end
 
-  
+  def find_farthest_possible_move
+    pillars = ["A", "B", "C"]
+    origin = find_largest_that_can_move
+    pillars.delete(origin)
+    pillars.reverse!
+    piece = @posts[origin].last
+    pillars.each do |pillar|
+      proposed_pillar = @posts[pillar]
+      proposed_move = proposed_pillar.push(piece)
+      return pillar if valid_move?(proposed_move)
+    end
+  end
 
   def find_largest_that_can_move
     [3,2,1].each do |piece|
